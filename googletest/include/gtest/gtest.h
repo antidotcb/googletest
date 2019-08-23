@@ -708,7 +708,7 @@ class GTEST_API_ TestInfo {
   }
 
   // Returns the file name where this test is defined.
-  const char* file() const { return location_.file.c_str(); }
+  const char* file() const { return location_.file.data(); }
 
   // Returns the line where this test is defined.
   int line() const { return location_.line; }
@@ -761,7 +761,7 @@ class GTEST_API_ TestInfo {
       internal::TypeId fixture_class_id,
       Test::SetUpTestCaseFunc set_up_tc,
       Test::TearDownTestCaseFunc tear_down_tc,
-      internal::TestFactoryBase* factory);
+      internal::TestFactoryBase* factory) noexcept;
 
   // Constructs a TestInfo object. The newly constructed instance assumes
   // ownership of the factory object.
@@ -771,7 +771,7 @@ class GTEST_API_ TestInfo {
            const char* a_value_param,  // NULL if not a value-parameterized test
            internal::CodeLocation a_code_location,
            internal::TypeId fixture_class_id,
-           internal::TestFactoryBase* factory);
+           internal::TestFactoryBase* factory) noexcept;
 
   // Increments the number of death tests encountered in this test so
   // far.

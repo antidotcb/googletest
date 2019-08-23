@@ -904,6 +904,12 @@ typedef struct _RTL_CRITICAL_SECTION GTEST_CRITICAL_SECTION;
 # define GTEST_CXX11_EQUALS_DELETE_
 #endif  // GTEST_LANG_CXX11
 
+#if GTEST_LANG_CXX11
+# define GTEST_CXX11_EQUALS_NOEXCEPT_ noexcept
+#else  // GTEST_LANG_CXX11
+# define GTEST_CXX11_EQUALS_NOEXCEPT_
+#endif  // GTEST_LANG_CXX11
+
 // Use this annotation before a function that takes a printf format string.
 #if (defined(__GNUC__) || defined(__clang__)) && !defined(COMPILER_ICC)
 # if defined(__MINGW_PRINTF_FORMAT)
@@ -932,6 +938,17 @@ typedef struct _RTL_CRITICAL_SECTION GTEST_CRITICAL_SECTION;
 #define GTEST_DISALLOW_COPY_AND_ASSIGN_(type) \
   type(type const &) GTEST_CXX11_EQUALS_DELETE_; \
   GTEST_DISALLOW_ASSIGN_(type)
+
+// A macro to disallow operator=
+// This should be used in the private: declarations for a class.
+#define GTEST_DISALLOW_MOVE_ASSIGN_(type) \
+  void operator=(type &&) GTEST_CXX11_EQUALS_NOEXCEPT_ GTEST_CXX11_EQUALS_DELETE_
+
+// A macro to disallow move constructor and operator=
+// This should be used in the private: declarations for a class.
+#define GTEST_DISALLOW_MOVE_AND_ASSIGN_(type) \
+  type(type &&) GTEST_CXX11_EQUALS_NOEXCEPT_ GTEST_CXX11_EQUALS_DELETE_; \
+  GTEST_DISALLOW_MOVE_ASSIGN_(type)
 
 // Tell the compiler to warn about unused return values for functions declared
 // with this macro.  The macro should be used on function declarations

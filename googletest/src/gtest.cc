@@ -2547,7 +2547,7 @@ TestInfo::TestInfo(const std::string& a_test_case_name,
                    const char* a_value_param,
                    internal::CodeLocation a_code_location,
                    internal::TypeId fixture_class_id,
-                   internal::TestFactoryBase* factory)
+                   internal::TestFactoryBase* factory) noexcept
     : test_case_name_(a_test_case_name),
       name_(a_name),
       type_param_(a_type_param ? new std::string(a_type_param) : NULL),
@@ -2592,7 +2592,7 @@ TestInfo* MakeAndRegisterTestInfo(
     TypeId fixture_class_id,
     SetUpTestCaseFunc set_up_tc,
     TearDownTestCaseFunc tear_down_tc,
-    TestFactoryBase* factory) {
+    TestFactoryBase* factory) noexcept {
   TestInfo* const test_info =
       new TestInfo(test_case_name, name, type_param, value_param,
                    code_location, fixture_class_id, factory);
@@ -2613,7 +2613,7 @@ void ReportInvalidTestCaseType(const char* test_case_name,
       << "probably rename one of the classes to put the tests into different\n"
       << "test cases.";
 
-  GTEST_LOG_(ERROR) << FormatFileLocation(code_location.file.c_str(),
+  GTEST_LOG_(ERROR) << FormatFileLocation(code_location.file.data(),
                                           code_location.line)
                     << " " << errors.GetString();
 }
