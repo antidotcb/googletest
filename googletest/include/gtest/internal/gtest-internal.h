@@ -447,7 +447,7 @@ TypeId GetTypeId() noexcept {
 // ::testing::Test, as the latter may give the wrong result due to a
 // suspected linker bug when compiling Google Test as a Mac OS X
 // framework.
-GTEST_API_ TypeId GetTestTypeId();
+GTEST_API_ TypeId GetTestTypeId() noexcept;
 
 // Defines the abstract factory interface that creates instances
 // of a Test object.

@@ -664,7 +664,7 @@ namespace internal {
 // from user test code.  GetTestTypeId() is guaranteed to always
 // return the same value, as it always calls GetTypeId<>() from the
 // gtest.cc, which is within the Google Test framework.
-TypeId GetTestTypeId() {
+TypeId GetTestTypeId() noexcept {
   return GetTypeId<Test>();
 }
 
